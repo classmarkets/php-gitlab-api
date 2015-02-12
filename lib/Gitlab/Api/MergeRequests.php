@@ -9,24 +9,24 @@ class MergeRequests extends AbstractApi
     const STATE_OPENED = 'opened';
     const STATE_CLOSED = 'closed';
 
-    public function all($project_id, $page = 1, $per_page = self::PER_PAGE)
+    public function all($project_id, $page = 1, $per_page = self::PER_PAGE, $order_by = 'created_at', $sort = 'desc')
     {
-        return $this->getMrList($project_id, $page, $per_page, self::STATE_ALL);
+        return $this->getMrList($project_id, $page, $per_page, $order_by, $sort, self::STATE_ALL);
     }
 
-    public function merged($project_id, $page = 1, $per_page = self::PER_PAGE)
+    public function merged($project_id, $page = 1, $per_page = self::PER_PAGE, $order_by = 'created_at', $sort = 'desc')
     {
-        return $this->getMrList($project_id, $page, $per_page, self::STATE_MERGED);
+        return $this->getMrList($project_id, $page, $per_page, $order_by, $sort, self::STATE_MERGED);
     }
 
-    public function opened($project_id, $page = 1, $per_page = self::PER_PAGE)
+    public function opened($project_id, $page = 1, $per_page = self::PER_PAGE, $order_by = 'created_at', $sort = 'desc')
     {
-        return $this->getMrList($project_id, $page, $per_page, self::STATE_OPENED);
+        return $this->getMrList($project_id, $page, $per_page, $order_by, $sort, self::STATE_OPENED);
     }
 
-    public function closed($project_id, $page = 1, $per_page = self::PER_PAGE)
+    public function closed($project_id, $page = 1, $per_page = self::PER_PAGE, $order_by = 'created_at', $sort = 'desc')
     {
-        return $this->getMrList($project_id, $page, $per_page, self::STATE_CLOSED);
+        return $this->getMrList($project_id, $page, $per_page, $order_by, $sort, self::STATE_CLOSED);
     }
 
     public function show($project_id, $mr_id)
@@ -72,12 +72,14 @@ class MergeRequests extends AbstractApi
         ));
     }
 
-    protected function getMrList($project_id, $page, $per_page, $state = self::STATE_ALL)
+    protected function getMrList($project_id, $page, $per_page, $order_by = 'created_at', $sort = 'desc', $state = self::STATE_ALL)
     {
         return $this->get('projects/'.urlencode($project_id).'/merge_requests', array(
             'page' => $page,
             'per_page' => $per_page,
-            'state' => $state
+            'state' => $state,
+            'order_by' => $order_by,
+            'sort' => $sort,
         ));
     }
 }
