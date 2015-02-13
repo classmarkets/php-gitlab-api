@@ -84,4 +84,9 @@ abstract class AbstractApi implements ApiInterface
 
         return $response->getContent();
     }
+
+    protected function getProjectPath($project_id)
+    {
+        return 'projects/'.urlencode($project_id).'/';
+    }
 }

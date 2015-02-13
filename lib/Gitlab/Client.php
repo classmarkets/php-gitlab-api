@@ -29,6 +29,7 @@ use Gitlab\HttpClient\Listener\AuthListener;
  * @property-read \Gitlab\Api\SystemHooks $hooks
  * @property-read \Gitlab\Api\SystemHooks $system_hooks
  * @property-read \Gitlab\Api\Users $users
+ * @property-read \Gitlab\Api\Commits $commits
  */
 class Client
 {
@@ -131,6 +132,10 @@ class Client
 
             case 'users':
                 $api = new Api\Users($this);
+                break;
+
+            case 'commits':
+                $api = new Api\Commits($this);
                 break;
 
             default:
